@@ -3,7 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const addBtn = document.getElementById('addBtn');
   const taskList = document.getElementById('taskList');
 
-  let tasks = [];
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+  function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 
   function renderTask(text, index) {
     const li = document.createElement('li');
@@ -26,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function addTask(text) {
     if (!text.trim()) return;
     tasks.push(text);
+    saveTasks();
     renderAll();
     taskInput.value = '';
   }
