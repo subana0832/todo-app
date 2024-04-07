@@ -18,7 +18,22 @@ document.addEventListener('DOMContentLoaded', () => {
     textSpan.className = 'task-text';
     textSpan.textContent = text;
 
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.dataset.index = index;
+    deleteBtn.textContent = '×';
+
+    deleteBtn.addEventListener('click', () => {
+      li.style.opacity = '0';
+      setTimeout(() => {
+        tasks.splice(index, 1);
+        saveTasks();
+        renderAll();
+      }, 300);
+    });
+
     li.appendChild(textSpan);
+    li.appendChild(deleteBtn);
     taskList.appendChild(li);
   }
 
