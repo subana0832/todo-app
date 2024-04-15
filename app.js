@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const taskInput = document.getElementById('taskInput');
   const addBtn = document.getElementById('addBtn');
   const taskList = document.getElementById('taskList');
+  const darkModeToggle = document.getElementById('darkModeToggle');
 
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -53,6 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
   addBtn.addEventListener('click', () => addTask(taskInput.value));
   taskInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') addTask(taskInput.value);
+  });
+
+  // Dark mode
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+  }
+  darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+
+  darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    darkModeToggle.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('darkMode', isDark);
   });
 
   renderAll();
