@@ -57,16 +57,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Dark mode
-  if (localStorage.getItem('darkMode') === 'true') {
-    document.body.classList.add('dark-mode');
-  }
-  darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-
-  darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
+  function updateDarkMode() {
     const isDark = document.body.classList.contains('dark-mode');
     darkModeToggle.textContent = isDark ? '☀️' : '🌙';
     localStorage.setItem('darkMode', isDark);
+  }
+
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+  }
+  updateDarkMode();
+
+  darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    updateDarkMode();
   });
 
   renderAll();
