@@ -1,3 +1,5 @@
+// Todo App v1.0
+
 document.addEventListener('DOMContentLoaded', () => {
   const taskInput = document.getElementById('taskInput');
   const addBtn = document.getElementById('addBtn');
@@ -5,6 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const darkModeToggle = document.getElementById('darkModeToggle');
 
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+  async function loadInitialData() {
+    if (!localStorage.getItem('tasks')) {
+      try {
+        const res = await fetch('data.json');
+        const data = await res.json();
+        data.tasks.forEach(t => tasks.push(t.text));
+      } catch(e) {}
+      saveTasks();
+    }
+    renderAll();
+  }
 
   function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -73,5 +87,5 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDarkMode();
   });
 
-  renderAll();
+  loadInitialData();
 });
